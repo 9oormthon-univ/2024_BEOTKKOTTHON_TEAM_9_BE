@@ -7,6 +7,7 @@ import com.example.bommeong.biz.adopt.dao.AdoptApplicationStatus;
 import com.example.bommeong.biz.adopt.dao.AdoptEntity;
 import com.example.bommeong.biz.adopt.dto.AdoptApplicationStatusDto;
 import com.example.bommeong.biz.adopt.dto.AdoptModel;
+import com.example.bommeong.biz.adopt.repository.AdoptApplicationRepository;
 import com.example.bommeong.biz.adopt.repository.AdoptRepository;
 import com.example.bommeong.biz.post.dao.PostEntity;
 import com.example.bommeong.biz.post.repository.PostRepository;
@@ -28,6 +29,7 @@ import java.util.Optional;
 public class AdoptService {
     private final AwsS3Service awsS3Service;
     private final AdoptRepository adoptRepository;
+    private final AdoptApplicationRepository adoptApplicationRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -72,10 +74,11 @@ public class AdoptService {
     }
 
     public void deleteAdopt(Long adoptId) {
-        AdoptEntity adoptEntity = adoptRepository.findById(adoptId)
+        adoptRepository.findById(adoptId)
                 .orElseThrow(() -> new RuntimeException("입양 신청을 찾을 수 없습니다."));
 
-        adoptRepository.delete(adoptEntity);
+        adoptRepository.deleteById(adoptId);
+
     }
 
     public List<AdoptModel> getAdoptList() {
