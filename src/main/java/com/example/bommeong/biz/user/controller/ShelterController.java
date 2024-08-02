@@ -68,6 +68,7 @@ public class ShelterController extends BaseApiController<BaseApiDto<?>> {
             log.info("data = {}", loginDto);
             return super.ok(new BaseApiDto<>(shelterService.login(loginDto)));
         } catch (Exception e) {
+            log.error(e.getMessage());
             return super.fail(BaseApiDto.newBaseApiDto(), "9999", "보호소 로그인 실패 : " + e.getMessage());
         }
     }

@@ -82,7 +82,7 @@ public class ChatService {
                     .collect(Collectors.toList());
         }
         else {
-            return null;
+            throw new IllegalArgumentException("No posts found for user with ID: " + userId);
         }
 
 

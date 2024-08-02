@@ -24,6 +24,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -118,14 +119,19 @@ public class ChatController  extends BaseApiController<BaseApiDto<?>> {
     @GetMapping("/{userId}")
     @Operation(summary = "채팅방 리스트 조회", description = "유저의 전체 채팅 리스트 응답")
     public ResponseEntity<BaseApiDto<?>> getPostListByChat(@PathVariable Long userId){
-        log.info("# chatController.getPostListByChat - userId: {}", userId);
-        List<ChatPostListDtoRes> postList = chatService.getPostsByUserIds(userId);
+        try {
+            log.info("# getPostListByChat - userId: {}", userId);
+            List<ChatPostListDtoRes> postList = chatService.getPostsByUserIds(userId);
 
-        if (postList != null && !postList.isEmpty()){
-            return super.ok(new BaseApiDto<>(postList));
-        }
-        else {
-            return super.fail(new BaseApiDto<>(null));
+            if (postList != null && !postList.isEmpty()){
+                return super.ok(new BaseApiDto<>(postList));
+            } else {
+                return super.ok(new BaseApiDto<>(new ArrayList<>())); // 빈 리스트 반환
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return super.fail(BaseApiDto.newBaseApiDto(), "9999", "채팅방 리스트 조회 실패 : " + e.getMessage());
         }
 
     }
