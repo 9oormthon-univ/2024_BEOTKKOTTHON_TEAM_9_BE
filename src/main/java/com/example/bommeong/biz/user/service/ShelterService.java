@@ -15,6 +15,7 @@ import com.example.bommeong.biz.post.repository.PostRepository;
 import com.example.bommeong.biz.user.domain.ShelterEntity;
 import com.example.bommeong.biz.user.domain.UserEntity;
 import com.example.bommeong.biz.user.dto.*;
+import com.example.bommeong.biz.user.dto.ShelterDtoReq.UpdateShelterInfoDto;
 import com.example.bommeong.biz.user.repository.ShelterRepository;
 import com.example.bommeong.jwt.JWTUtil;
 import java.time.LocalDate;
@@ -193,9 +194,10 @@ public class ShelterService {
 
     }
 
-    public void updateShelterInfo(ShelterDtoReq.UpdateShelterInfoDto updateShelterInfoDto) {
+    public void updateShelterInfo(UpdateShelterInfoDto updateShelterInfoDto) {
+        log.info("updateShelterInfoDto: {}", updateShelterInfoDto);
         ShelterEntity shelterEntity = shelterRepository.findById(updateShelterInfoDto.getShelterId()).orElseThrow(() -> new RuntimeException("보호소를 찾을 수 없습니다. "));
-
+        log.info("shelter Entity: {}", shelterEntity);
         shelterEntity.updateInfo(updateShelterInfoDto);
         shelterRepository.save(shelterEntity);
 

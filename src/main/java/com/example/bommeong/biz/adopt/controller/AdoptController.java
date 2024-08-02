@@ -50,7 +50,7 @@ public class AdoptController extends BaseApiController<BaseApiDto<?>> {
     @Operation(summary = "입양 신청 상태 변경", description = "입양 신청 상태 변경")
     public ResponseEntity<BaseApiDto<?>> updateAdoptApplicationStatus(@RequestBody AdoptApplicationStatusDto statusDto){
         adoptService.updateAdoptApplicationStatus(statusDto);
-        return ResponseEntity.ok().build();
+        return super.ok(BaseApiDto.newBaseApiDto());
     }
 
     @GetMapping
