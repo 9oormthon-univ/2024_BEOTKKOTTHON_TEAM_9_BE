@@ -82,7 +82,6 @@ public class ShelterEntity {
 
 
     public void updateInfo(ShelterDtoReq.UpdateShelterInfoDto dto) {
-        this.email = dto.getEmail();
         this.phone = dto.getPhone();
         this.managerName = dto.getManagerName();
         this.subEmail = dto.getSubEmail();
