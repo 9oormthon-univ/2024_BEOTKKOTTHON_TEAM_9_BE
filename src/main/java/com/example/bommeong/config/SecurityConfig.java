@@ -101,6 +101,7 @@ public class SecurityConfig {
                                 "/api/v1/login",
                                 "/api/v1/",
                                 "/api/v1/join",
+                                "/api/v1/user/email-check/**",
                                 "/api/v1/user/signup", // 유저 auth
                                 "/api/v1/user/login",
                                 "/api/v1/user/reissue",

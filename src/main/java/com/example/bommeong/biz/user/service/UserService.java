@@ -221,4 +221,11 @@ public class UserService extends BaseServiceImplWithJpa {
     }
 
 
+    public void emailCheck(String email) {
+        Optional<UserEntity> user = userRepository.findByEmail(email);
+
+        if (user.isPresent()) {
+            throw new RuntimeException("이미 존재하는 이메일입니다.");
+        }
+    }
 }

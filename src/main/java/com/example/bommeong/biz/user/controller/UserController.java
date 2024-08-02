@@ -27,7 +27,19 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "User", description = "유저 API")
 public class UserController extends BaseApiController<BaseApiDto<?>> {
 
+    private final UserService userService;
     private final TokenService tokenService;
+
+    @Operation(summary = "이메일 중복 체크", description = "이메일 중복 체크")
+    @GetMapping("/email-check/{email}")
+    public ResponseEntity<BaseApiDto<?>> emailCheck(@PathVariable String email) throws Exception {
+        try {
+            userService.emailCheck(email);
+            return super.ok(BaseApiDto.newBaseApiDto());
+        } catch (Exception e) {
+            return super.fail(BaseApiDto.newBaseApiDto(), "9999", "이메일 중복 체크 실패 : " + e.getMessage());
+        }
+    }
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "반려인 회원가입")
@@ -50,8 +62,6 @@ public class UserController extends BaseApiController<BaseApiDto<?>> {
         }
 
     }
-
-    private final UserService userService;
 
     @PostMapping("/login")
     @Operation(summary = "로그인", description = "통합 로그인")
